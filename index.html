@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>George Hunt</title>
+  <meta name="description" content="George Hunt — aspiring engineer studying Physics, Maths, Further Maths and Chemistry, seeking an engineering apprenticeship.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Default: classic blueprint (white lines on blue). Light toggle: "whiteprint" (blue lines on paper). */
+    :root {
+      --bg: #0d3b66;
+      --grid-minor: rgba(255, 255, 255, 0.05);
+      --grid-major: rgba(255, 255, 255, 0.11);
+      --line: rgba(220, 235, 255, 0.55);
+      --line-faint: rgba(220, 235, 255, 0.22);
+      --text: #eaf3ff;
+      --muted: #a9c3e0;
+      --accent: #ffd166;
+      --panel: rgba(9, 44, 78, 0.55);
+    }
+    :root[data-theme="light"] {
+      --bg: #f4f7fb;
+      --grid-minor: rgba(13, 59, 102, 0.05);
+      --grid-major: rgba(13, 59, 102, 0.11);
+      --line: rgba(13, 59, 102, 0.6);
+      --line-faint: rgba(13, 59, 102, 0.22);
+      --text: #0d2b4a;
+      --muted: #4d6a88;
+      --accent: #c2410c;
+      --panel: rgba(255, 255, 255, 0.7);
+    }
+    /* Dark mode is the native blueprint look, so system dark needs no override. */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { color-scheme: dark; }
+    }
+    :root[data-theme="dark"] { color-scheme: dark; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+      background-position: -1px -1px;
+      color: var(--text);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .mono { font-family: "IBM Plex Mono", monospace; }
+
+    .sheet { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line-faint);
+    }
+    nav .sheet { display: flex; align-items: center; justify-content: space-between; height: 54px; }
+    .logo { font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--text); letter-spacing: 0.04em; font-size: 14px; }
+    .logo:hover { text-decoration: none; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 18px; list-style: none; align-items: center; }
+    nav ul a { font-family: "IBM Plex Mono", monospace; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+    nav ul a:hover { color: var(--text); text-decoration: none; }
+    .theme-btn {
+      font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.06em;
+      background: none; border: 1px solid var(--line-faint); color: var(--muted);
+      padding: 5px 8px; cursor: pointer; text-transform: uppercase;
+    }
+    .theme-btn:hover { color: var(--text); border-color: var(--line); }
+
+    /* Frame with corner registration marks */
+    .frame { position: relative; border: 1px solid var(--line); padding: 28px; background: var(--panel); }
+    .frame::before, .frame::after {
+      content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid var(--accent);
+    }
+    .frame::before { top: -6px; left: -6px; border-right: none; border-bottom: none; }
+    .frame::after { bottom: -6px; right: -6px; border-left: none; border-top: none; }
+
+    /* Hero */
+    header { padding: 72px 0 56px; }
+    .ref { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    h1 {
+      font-family: "IBM Plex Mono", monospace; font-weight: 600;
+      font-size: clamp(34px, 8vw, 60px); line-height: 1.05; letter-spacing: -0.01em;
+      margin: 14px 0 6px; text-transform: uppercase;
+    }
+    /* Dimension line under the name */
+    .dim { display: flex; align-items: center; gap: 10px; color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 11px; margin-bottom: 24px; }
+    .dim::before, .dim::after { content: ""; flex: 1; height: 1px; background: var(--line-faint); }
+    .dim-wrap { position: relative; padding: 0 1px; }
+    .dim-wrap::before, .dim-wrap::after { content: ""; position: absolute; top: -8px; width: 1px; height: 16px; background: var(--line-faint); }
+    .dim-wrap::before { left: 0; } .dim-wrap::after { right: 0; }
+    .lede { font-size: 18px; color: var(--muted); max-width: 600px; }
+    .lede strong { color: var(--text); font-weight: 500; }
+    .cta { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      font-family: "IBM Plex Mono", monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em;
+      display: inline-block; padding: 10px 16px; border: 1px solid var(--line); color: var(--text);
+    }
+    .btn:hover { text-decoration: none; background: var(--line-faint); }
+    .btn.primary { border-color: var(--accent); color: var(--accent); }
+
+    /* Specs strip */
+    .specs { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 32px; border: 1px solid var(--line-faint); }
+    .specs div { padding: 12px 14px; border-right: 1px solid var(--line-faint); }
+    .specs div:last-child { border-right: none; }
+    .specs dt { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .specs dd { font-family: "IBM Plex Mono", monospace; font-size: 14px; margin-top: 2px; }
+
+    /* Sections */
+    section { padding: 28px 0; }
+    .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; }
+    .sec-num { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--accent); border: 1px solid var(--accent); padding: 1px 6px; }
+    h2 { font-family: "IBM Plex Mono", monospace; font-size: 15px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+    .sec-head .rule { flex: 1; height: 1px; background: var(--line-faint); align-self: center; }
+    section p + p { margin-top: 12px; }
+
+    /* Parts list table */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { border: 1px solid var(--line-faint); padding: 10px 12px; text-align: left; vertical-align: top; }
+    th { font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 500; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    td.no { font-family: "IBM Plex Mono", monospace; color: var(--accent); width: 56px; }
+    td.name { font-weight: 500; white-space: nowrap; }
+    td.desc { color: var(--muted); }
+
+    /* Projects */
+    .empty {
+      border: 1px dashed var(--line); padding: 36px 20px; text-align: center;
+      font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--muted); letter-spacing: 0.04em;
+    }
+    .empty b { display: block; color: var(--text); font-weight: 500; margin-bottom: 4px; letter-spacing: 0.1em; }
+    .project { border: 1px solid var(--line-faint); padding: 18px 20px; }
+    .project + .project { margin-top: 12px; }
+    .project h3 { font-family: "IBM Plex Mono", monospace; font-size: 15px; font-weight: 600; }
+    .project p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+    /* Requirements list */
+    .reqs { list-style: none; counter-reset: req; }
+    .reqs li { counter-increment: req; padding: 10px 0 10px 52px; position: relative; border-bottom: 1px dashed var(--line-faint); }
+    .reqs li:last-child { border-bottom: none; }
+    .reqs li::before {
+      content: "R-" counter(req, decimal-leading-zero); position: absolute; left: 0; top: 11px;
+      font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--accent);
+    }
+
+    /* Title block footer */
+    footer { padding: 28px 0 56px; }
+    .title-block { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border: 1px solid var(--line); }
+    .title-block div { padding: 10px 12px; border-right: 1px solid var(--line-faint); }
+    .title-block div:last-child { border-right: none; }
+    .title-block dt { font-family: "IBM Plex Mono", monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+    .title-block dd { font-family: "IBM Plex Mono", monospace; font-size: 13px; margin-top: 2px; }
+
+    @media (max-width: 600px) {
+      nav ul li.hide-sm { display: none; }
+      header { padding: 48px 0 40px; }
+      .frame { padding: 20px; }
+      .specs { grid-template-columns: 1fr; }
+      .specs div { border-right: none; border-bottom: 1px solid var(--line-faint); }
+      .specs div:last-child { border-bottom: none; }
+      td.name { white-space: normal; }
+      .title-block { grid-template-columns: 1fr 1fr; }
+      .title-block div:nth-child(1) { grid-column: 1 / -1; border-right: none; border-bottom: 1px solid var(--line-faint); }
+      .title-block div:nth-child(3) { border-right: none; }
+      .title-block div:nth-child(2), .title-block div:nth-child(3) { border-bottom: 1px solid var(--line-faint); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="sheet">
+      <a class="logo" href="#">G.HUNT<span>/</span>ENG</a>
+      <ul>
+        <li class="hide-sm"><a href="#about">About</a></li>
+        <li class="hide-sm"><a href="#studies">Studies</a></li>
+        <li class="hide-sm"><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button class="theme-btn" id="themeBtn" aria-label="Toggle colour scheme">Print</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="sheet">
+    <header>
+      <div class="frame">
+        <p class="ref">DWG No. GH-001 &nbsp;/&nbsp; Engineering Portfolio</p>
+        <h1><span class="dim-wrap">George Hunt</span></h1>
+        <div class="dim">ASPIRING ENGINEER</div>
+        <p class="lede">
+          Student of <strong>physics and mathematics</strong>, looking for an
+          <strong>engineering apprenticeship</strong> where I can turn theory into things that work.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Get in touch →</a>
+          <a class="btn" href="https://github.com/H-George-H" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <dl class="specs">
+          <div><dt>Age</dt><dd>16</dd></div>
+          <div><dt>Status</dt><dd>College student</dd></div>
+          <div><dt>Seeking</dt><dd>Apprenticeship</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="sec-head"><span class="sec-num">01</span><h2>About</h2><span class="rule"></span></div>
+      <p>
+        I'm 16 and currently at college studying Physics, Maths, Further Maths and Chemistry.
+        I enjoy understanding how things work from first principles, and I'm keen to apply that
+        to real engineering problems.
+      </p>
+      <p>
+        I'm looking for an engineering apprenticeship where I can learn from experienced engineers,
+        build practical skills, and contribute to real projects.
+      </p>
+    </section>
+
+    <section id="studies">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Studies — Parts List</h2><span class="rule"></span></div>
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Subject</th><th>Coverage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="no">01</td><td class="name">Physics</td><td class="desc">Mechanics, electricity, waves and materials</td></tr>
+          <tr><td class="no">02</td><td class="name">Mathematics</td><td class="desc">Pure maths, statistics and mechanics</td></tr>
+          <tr><td class="no">03</td><td class="name">Further Mathematics</td><td class="desc">Complex numbers, matrices, differential equations</td></tr>
+          <tr><td class="no">04</td><td class="name">Chemistry</td><td class="desc">Physical, organic and inorganic chemistry</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="projects">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Projects</h2><span class="rule"></span></div>
+      <!--
+        To add a project, replace the "empty" block below with one or more of these:
+
+        <div class="project">
+          <h3>PROJECT TITLE</h3>
+          <p>One or two sentences on what you built, how, and what you learned.</p>
+          <p><a href="https://github.com/H-George-H/repo-name">View on GitHub →</a></p>
+        </div>
+      -->
+      <div class="empty">
+        <b>[ IN DEVELOPMENT ]</b>
+        Projects are on the drawing board and will be added here soon.
+      </div>
+    </section>
+
+    <section id="looking">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Requirements</h2><span class="rule"></span></div>
+      <ul class="reqs">
+        <li>An engineering apprenticeship (open to mechanical, electrical, aerospace and more)</li>
+        <li>Hands-on work alongside experienced engineers</li>
+        <li>Work experience or taster days while I complete my studies</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Contact</h2><span class="rule"></span></div>
+      <p style="color: var(--muted);">You can find me and my work on GitHub:</p>
+      <p style="margin-top: 8px;"><a class="mono" style="font-size: 18px;" href="https://github.com/H-George-H" target="_blank" rel="noopener">github.com/H-George-H →</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="sheet">
+      <dl class="title-block">
+        <div><dt>Title</dt><dd>George Hunt — Engineering Portfolio</dd></div>
+        <div><dt>Drawn by</dt><dd>G. Hunt</dd></div>
+        <div><dt>Rev</dt><dd>A</dd></div>
+        <div><dt>Date</dt><dd id="year"></dd></div>
+      </dl>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const root = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    const label = () => { btn.textContent = root.dataset.theme === 'light' ? 'Blueprint' : 'Print'; };
+    try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+    label();
+    btn.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+      label();
+    });
+  </script>
+</body>
+</html>
